@@ -1,12 +1,16 @@
 from django.db import models
-from my_library.models import library_list
+# from my_library.models import library_list
 from user.models import User
 
+# from user.models import User
+class Category(models.Model):
+    title=models.CharField()
+
 # Create your models here.
-class Book_List(models.Model):
-    library = models.ForeignKey(library_list,on_delete=models.CASCADE)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    # category = models.ForeignKey(category,on_delete=models.CASCADE)
+class Booklist(models.Model):
+    library = models.ManyToManyField("my_library.librarylist",related_name='lib')
+    user = models.ManyToManyField(User,related_name ='my_user' )
+    category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='category')
     name = models.CharField(max_length=20)
     auther = models.CharField(max_length=20)
     amount = models.IntegerField()

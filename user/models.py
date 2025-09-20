@@ -1,11 +1,11 @@
 from django.db import models
-from book.models import Book_List
-from my_library.models import library_list
+#from my_library.models import libraryList
+
 
 # Create your models here.
 class User(models.Model):
     pers_id=models.IntegerField()
     phonenumber= models.IntegerField()
-    library = models.ForeignKey(library_list,on_delete=models.CASCADE)
-    book=models.ForeignKey(Book_List,on_delete=models.CASCADE)
+    library = models.ManyToManyField("my_library.LibraryList",related_name='my_lib',null=True,blank=True)
+    book=models.ManyToManyField("book.BookList",related_name='my_book',null=True,blank=True)
     
